@@ -57,7 +57,7 @@ pipeline:
                             identifier: build_and_push_client
                             spec:
                               connectorRef: HarnessConnector
-                              repo: singha07/react-app-harness/
+                              repo: singha07/react-app-harness
                               tags:
                                 - <+pipeline.sequenceid>
               - step:
