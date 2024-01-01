@@ -39,35 +39,48 @@ pipeline:
                   name: Build Container Image
                   identifier: Build_Container_Image
                   steps:
-                    - parallel:
-                        - step:
-                            type: BuildAndPushDockerRegistry
-                            name: build_and_push_server
-                            identifier: build_and_push_server
-                            spec:
-                              connectorRef: HarnessConnector
-                              repo: singha07/react-app-harness
-                              tags:
-                                - <+pipeline.sequenceid>
-                              dockerfile: server/Dockerfile
-                              context: server
-                        - step:
-                            type: BuildAndPushDockerRegistry
-                            name: build_and_push_client
-                            identifier: build_and_push_client
-                            spec:
-                              connectorRef: HarnessConnector
-                              repo: singha07/react-app-harness
-                              tags:
-                                - <+pipeline.sequenceid>
-                              dockerfile: client/Dockerfile
-                              context: client
+                    - step:
+                        type: BuildAndPushDockerRegistry
+                        name: build_and_push_server
+                        identifier: build_and_push_server
+                        spec:
+                          connectorRef: HarnessConnector
+                          repo: singha07/react-app-harness
+                          tags:
+                            - <+pipeline.sequenceid>
+                          dockerfile: server/Dockerfile
+                          context: server
+    - stage:
+        name: build_client
+        identifier: build_client
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
               - step:
-                  type: S3Upload
-                  name: push_artifact_server
-                  identifier: push_artifact_server
+                  type: Run
+                  name: install_and_test
+                  identifier: install_and_test
                   spec:
-                    connectorRef: AWSConnector
-                    region: ap-south-1
-                    bucket: mern-stack-server
-                    sourcePath: artifacts/
+                    shell: Bash
+                    command: |
+                      cd /client
+                      yarn install;
+                      yarn test;
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: build_and_push_to_docker
+                  identifier: build_and_push_to_docker
+                  spec:
+                    connectorRef: HarnessConnector
+                    repo: singha07/react-app-harness/
+                    tags:
+                      - client/Dockerfile
