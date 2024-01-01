@@ -36,3 +36,12 @@ pipeline:
                       - <+pipeline.sequenceid>
                     dockerfile: server/Dockerfile
                     context: server
+              - step:
+                  type: Run
+                  name: checking
+                  identifier: checking
+                  spec:
+                    shell: Sh
+                    command: |-
+                      cd / harness
+                      ls
