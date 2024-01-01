@@ -30,7 +30,7 @@ pipeline:
                   name: build_and_push_server
                   identifier: build_and_push_server
                   spec:
-                    connectorRef: account.harnessImage
+                    connectorRef: HarnessConnector
                     repo: singha07/react-app-harness
                     tags:
                       - <+pipeline.sequenceid>
