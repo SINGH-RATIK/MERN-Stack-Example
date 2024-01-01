@@ -68,4 +68,4 @@ pipeline:
                     connectorRef: AWSConnector
                     region: ap-south-1
                     bucket: mern-stack-server
-                    sourcePath: /harness
+                    sourcePath: artifacts/
