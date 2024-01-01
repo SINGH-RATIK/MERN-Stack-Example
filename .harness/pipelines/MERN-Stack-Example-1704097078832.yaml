@@ -60,6 +60,8 @@ pipeline:
                               repo: singha07/react-app-harness
                               tags:
                                 - <+pipeline.sequenceid>
+                              dockerfile: client/Dockerfile
+                              context: client
               - step:
                   type: S3Upload
                   name: push_artifact_server
