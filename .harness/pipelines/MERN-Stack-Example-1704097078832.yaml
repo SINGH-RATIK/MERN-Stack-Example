@@ -11,23 +11,28 @@ pipeline:
         repoName: Cager2808/MERN-Stack-Example
   stages:
     - stage:
-        identifier: build
-        name: build
+        name: build_server
+        identifier: build_server
+        description: ""
+        type: CI
         spec:
           cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
           execution:
             steps:
               - step:
-                  identifier: npminstall
-                  name: npm_install
+                  type: BuildAndPushDockerRegistry
+                  name: build_and_push_server
+                  identifier: build_and_push_server
                   spec:
-                    command: npm install
-                  timeout: ""
-                  type: Run
-          platform:
-            arch: Amd64
-            os: Linux
-          runtime:
-            spec: {}
-            type: Cloud
-        type: CI
+                    connectorRef: account.harnessImage
+                    repo: singha07/react-app-harness
+                    tags:
+                      - <+pipeline.sequenceid>
+                    dockerfile: server/Dockerfile
+                    context: server
