@@ -37,11 +37,11 @@ pipeline:
                     dockerfile: server/Dockerfile
                     context: server
               - step:
-                  type: Run
-                  name: checking
-                  identifier: checking
+                  type: S3Upload
+                  name: push_artifact_server
+                  identifier: push_artifact_server
                   spec:
-                    shell: Sh
-                    command: |-
-                      cd /harness
-                      ls
+                    connectorRef: AWSConnector
+                    region: ap-south-1
+                    bucket: mern-stack-server
+                    sourcePath: /harness
