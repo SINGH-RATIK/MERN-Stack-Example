@@ -47,7 +47,7 @@ pipeline:
                           connectorRef: HarnessConnector
                           repo: singha07/react-app-harness
                           tags:
-                            - <+pipeline.sequenceid>
+                            - latest
                           dockerfile: server/Dockerfile
                           context: server
     - stage:
