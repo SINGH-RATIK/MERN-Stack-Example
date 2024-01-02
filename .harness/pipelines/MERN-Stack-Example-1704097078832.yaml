@@ -72,7 +72,7 @@ pipeline:
                   spec:
                     shell: Bash
                     command: |
-                      cd /client
+                      cd client/
                       yarn install;
                       yarn test;
               - step:
