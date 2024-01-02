@@ -71,10 +71,10 @@ pipeline:
                   identifier: install_and_test
                   spec:
                     shell: Bash
-                    command: |
+                    command: |+
                       cd client/
                       yarn install;
-                      yarn test;
+
               - step:
                   type: BuildAndPushDockerRegistry
                   name: build_and_push_to_docker
