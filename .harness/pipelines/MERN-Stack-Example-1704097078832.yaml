@@ -35,6 +35,8 @@ pipeline:
                       cd server
                       yarn install;
                       yarn test;
+
+                      dsaas
               - stepGroup:
                   name: Build Container Image
                   identifier: Build_Container_Image
