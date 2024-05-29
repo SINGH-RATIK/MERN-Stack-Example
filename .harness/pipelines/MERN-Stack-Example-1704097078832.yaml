@@ -1,0 +1,52 @@
+pipeline:
+  identifier: Build_Cager2808_MERN_Stack_Example_1704097082925
+  name: Build MERN-Stack-Example
+  orgIdentifier: default
+  projectIdentifier: Mearnstackexmaple
+  properties:
+    ci:
+      codebase:
+        build: <+input>
+        connectorRef: account.Github_OAuth_1698735122136
+        repoName: Cager2808/MERN-Stack-Example
+  stages:
+    - stage:
+        name: build_server
+        identifier: build_server
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: install_and_test
+                  identifier: install_and_test
+                  spec:
+                    shell: Bash
+                    command: |-
+                      cd server
+                      yarn install;
+                      yarn test;
+              - stepGroup:
+                  name: Build Container Image
+                  identifier: Build_Container_Image
+                  steps:
+                    - step:
+                        type: BuildAndPushDockerRegistry
+                        name: build_and_push_server
+                        identifier: build_and_push_server
+                        spec:
+                          connectorRef: HarnessConnector
+                          repo: singha07/react-app-harness
+                          tags:
+                            - latest
+                          dockerfile: server/Dockerfile
+                          context: server
