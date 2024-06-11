@@ -1,0 +1,33 @@
+pipeline:
+  name: Build MERN-Stack-Example
+  identifier: Build_Cager2808_MERN_Stack_Example_1718083888469
+  projectIdentifier: Demo4
+  orgIdentifier: default
+  stages:
+    - stage:
+        name: Build
+        identifier: Build
+        type: CI
+        spec:
+          cloneCodebase: true
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Echo Welcome Message
+                  identifier: Echo_Welcome_Message
+                  spec:
+                    shell: Sh
+                    command: echo "Welcome to Harness CI"
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: account.Github_OAuth_1698735122136
+        repoName: Cager2808/MERN-Stack-Example
+        build: <+input>
