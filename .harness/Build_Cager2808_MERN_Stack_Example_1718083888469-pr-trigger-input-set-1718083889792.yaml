@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_Cager2808_MERN_Stack_Example_1718083888469-pr-trigger-input-set
+  identifier: Build_Cager2808_MERN_Stack_Example_1718083888469prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: Demo4
+  pipeline:
+    identifier: Build_Cager2808_MERN_Stack_Example_1718083888469
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
